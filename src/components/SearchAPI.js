@@ -14,20 +14,22 @@ const SearchAPI = () => {
     the empty array is populating first rather than the data pushed
     to state.
     */
-    let apiObj = {}
+    let apiContainer = []
     const getApiData = (title) => {
         axios.get(`http://hn.algolia.com/api/v1/search?query=${title}&tags=story`)
             .then(res => {
                const keys = Object.values(res.data.hits)
             //    find a way to list EVERYTHING
                for (const key of keys) {
-                    apiObj = {
+                   let apiObj = {
                         author: key.author,
                         title: key.title,
                         url: key.url,
                     }  
+                    console.log(apiObj)
+                    apiContainer = [apiObj]
                }
-               setApiArr([apiObj])  
+               setApiArr([apiContainer])  
             })
             .catch(err => console.error(err))
    }
