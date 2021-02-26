@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import './SearchAPI.css'
 import axios from 'axios';
 
 
@@ -18,6 +19,7 @@ const SearchAPI = () => {
         axios.get(`http://hn.algolia.com/api/v1/search?query=${title}&tags=story`)
             .then(res => {
                const keys = Object.values(res.data.hits)
+            //    find a way to list EVERYTHING
                for (const key of keys) {
                     apiObj = {
                         author: key.author,
@@ -51,11 +53,11 @@ const SearchAPI = () => {
                     <hr/>
                     <li>Title: {key.title}</li>
                     <hr/>
-                    <li>Source: <span><a href={key.url} target="_blank">Read Story Here!</a></span></li>
+                    <li>Source: <span><a href={key.url} target="_blank" rel="noreferrer">Read Story Here!</a></span></li>
                 </ul>
             </div>
        )
-   }): console.log('no data')
+   }): null
 
     return (
         <div>

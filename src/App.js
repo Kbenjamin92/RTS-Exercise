@@ -5,7 +5,6 @@ function App() {
   return (
     <div className="App">
       <SearchAPI/>
-
     </div>
   );
 }
