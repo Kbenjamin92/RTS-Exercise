@@ -1,18 +1,17 @@
 export const initialState = {
     searchTermCollection: [],
     responseApiData: [],
-    author: '',
-    title: '',
-    url: '',
-    comments: ''
 }
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_SEARCHED_TERM':
             return {
-                ...state,
-                searchTermCollection: [...state.searchTermCollection, action.payload]
+                searchTermCollection: [action.payload, ...state.searchTermCollection]
+            }
+        case 'GET_API_DATA':
+            return {
+                responseApiData: [action.payload, ...state.responseApiData]
             }
         default: 
             return state

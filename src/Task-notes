@@ -1,6 +1,3 @@
-- Build form component that takes in search data 
-- Build component for HTTP get requests
-- Create local state array for the API response data
 - Once get requests are receieved use the map() to render the data on the package
 - Add the value data from the form to the redux state array
 
