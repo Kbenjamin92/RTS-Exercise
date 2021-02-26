@@ -2,10 +2,3 @@
 - Add the value data from the form to the redux state array
 
 -Add error handling in the search if certain data isn't found
-
-- data I need to render to
-hits data provides
-    - author
-    - title
-    - url
-    - comments

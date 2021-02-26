@@ -1,11 +1,11 @@
 import './App.css';
-import MapAPI from './components/MapAPI'
+import SearchAPI from './components/SearchAPI'
 
 function App() {
   return (
     <div className="App">
-      <MapAPI/>
-      
+      <SearchAPI/>
+
     </div>
   );
 }
