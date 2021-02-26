@@ -13,7 +13,7 @@ const SearchAPI = () => {
     the empty array is populating first rather than the data pushed
     to state.
     */
-
+    let apiObj = {}
     const getApiData = (title) => {
         axios.get(`http://hn.algolia.com/api/v1/search?query=${title}&tags=story`)
             .then(res => {
@@ -45,15 +45,24 @@ const SearchAPI = () => {
    const data = apiArr.length !== 0 ? apiArr.map((key) => {
        console.log(key)
        return (
-           <div key={key}>
-               <h2>{key.title}</h2>
-           </div>
+            <div key={key}>
+                <ul>
+                    <li>Author: {key.author}</li>
+                    <hr/>
+                    <li>Title: {key.title}</li>
+                    <hr/>
+                    <li>Source: <span><a href={key.url} target="_blank">Read Story Here!</a></span></li>
+                </ul>
+            </div>
        )
    }): console.log('no data')
 
     return (
         <div>
+            {/* remove this button */}
             <button onClick={() => getApiData()}>get data</button>
+
+
             <h1>Hacker News Algolia API!</h1>
             <form onSubmit={handleSubmit}>
                 <input 
@@ -65,7 +74,6 @@ const SearchAPI = () => {
                 />
                 <button type='submit'>Search</button>
             </form>
-
             {data}
         </div>
     )
