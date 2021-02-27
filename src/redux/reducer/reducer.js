@@ -1,5 +1,6 @@
 export const initialState = {
     searchTermCollection: [],
+    apiResults: []
 }
 
 export const reducer = (state = initialState, action) => {
@@ -7,6 +8,10 @@ export const reducer = (state = initialState, action) => {
         case 'ADD_SEARCHED_TERM':
             return {
                 searchTermCollection: [action.payload, ...state.searchTermCollection]
+            }
+        case 'ADD_API_RESULT':
+            return {
+                apiResults: [action.payload, ...state.apiResults]
             }
         default: 
             return state

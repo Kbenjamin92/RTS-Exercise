@@ -5,35 +5,28 @@ import axios from 'axios';
 
 
 const SearchAPI = () => {
-    const stateData = useSelector(state => state.searchTermCollection);
+    const apiDataFromRedux = useSelector(state => state.apiResults);
+    const term = useSelector(state => state.searchTermCollection);
     const dispatch = useDispatch();
     const [inputData, setInputData] = useState('')
-    const [apiArr, setApiArr] = useState([])
-    /*
-    find out why when submitting the form 
-    the empty array is populating first rather than the data pushed
-    to state.
-    */
-    let apiContainer = []
+    
     const getApiData = (title) => {
         axios.get(`http://hn.algolia.com/api/v1/search?query=${title}&tags=story`)
             .then(res => {
-               const keys = Object.values(res.data.hits)
-            //    find a way to list EVERYTHING
-               for (const key of keys) {
-                   let apiObj = {
-                        author: key.author,
-                        title: key.title,
-                        url: key.url,
-                    }  
-                    console.log(apiObj)
-                    apiContainer = [apiObj]
-               }
-               setApiArr([apiContainer])  
+                for (let i = 0; i < res.data.hits.length; i++) {
+                    dispatch({
+                        type: 'ADD_API_RESULT',
+                        payload: {
+                            author: res.data.hits[i].author,
+                            title: res.data.hits[i].title,
+                            url: res.data.hits[i].url
+                        }
+                    })
+                }
             })
             .catch(err => console.error(err))
    }
-
+   
    const handleSubmit = (e) => {
        e.preventDefault();
        dispatch({
@@ -44,12 +37,10 @@ const SearchAPI = () => {
         getApiData(inputData)
    }
 
-   console.log(stateData)
-
-   const data = apiArr.length !== 0 ? apiArr.map((key) => {
-       console.log(key)
+console.log(term)
+   const data = apiDataFromRedux.length !== 0 ? apiDataFromRedux.map((key, index) => {
        return (
-            <div key={key}>
+            <div key={index} className='cards'>
                 <ul>
                     <li>Author: {key.author}</li>
                     <hr/>
@@ -59,7 +50,7 @@ const SearchAPI = () => {
                 </ul>
             </div>
        )
-   }): null
+   }): getApiData()
 
     return (
         <div>
