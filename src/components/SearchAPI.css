@@ -1,8 +1,49 @@
 .title {
     font-weight: lighter;
 }
-
+.message-before-data {
+    font-size: 24px;
+    font-weight: lighter;
+}
 .input-field {
-    border: solid 1px ;
+    border: solid 1px transparent;
+    font-size: 15px;
+    border-radius: 4px;
     padding: 10px;
+    box-shadow: 2px 2px 8px 2px rgba(0,0,0,0.10);
+    outline: none;
+}
+.btn {
+    border: solid 1px transparent;
+    border-radius: 4px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color:  #2e9ae3;
+    color: #ffffff;
+    font-size: 14px;
+    transition: 0.3s;
+    outline: none;
+}
+.btn:hover {
+    border: solid 1px transparent;
+    border-radius: 4px;
+    padding: 10px;
+    margin-left: 10px;
+    background-color:  #0d3d5c;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+}
+.cards {
+    border: solid 1px ;
+    text-align: start;
+    margin: 7% 10% 1% 10%;
+    box-shadow: 2px 2px 8px 2px rgba(0,0,0,0.13);
+    border: solid 1px transparent;
+    border-radius: 2px;
+}
+.list-container {
+    list-style-type: none;
+    padding-left: 5%;
+    padding-right: 18%;
 }

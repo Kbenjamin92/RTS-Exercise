@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import './SearchAPI.css'
 import axios from 'axios';
 
 
 const SearchAPI = () => {
-    const term = useSelector(state => state.searchCollection);
     const dispatch = useDispatch();
     const [inputData, setInputData] = useState('')
     const [apiArr, setApiArr] = useState([])
-
-
-console.log(term)
-console.log(apiArr)
 
 // get data
 const getApiData = async title => {
@@ -48,14 +43,14 @@ const getApiData = async title => {
             </div>
        )
    }): (
-       <div className='message-before-data'>
-           <p>No data yet!</p>
+       <div>
+           <p className='message-before-data'>No data yet!</p>
        </div>
    )
     return (
         <div>
             <h1 className='title'>Search Hacker News Algolia API!</h1>
-            <form onSubmit={handleSubmit} className='form'>
+            <form onSubmit={handleSubmit}>
                 <input 
                 name='title' 
                 type='text'
