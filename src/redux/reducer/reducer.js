@@ -1,17 +1,13 @@
 export const initialState = {
-    searchTermCollection: [],
-    apiResults: []
+    searchCollection: [],
 }
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_SEARCHED_TERM':
+            console.log(state.searchCollection)
             return {
-                searchTermCollection: [action.payload, ...state.searchTermCollection]
-            }
-        case 'ADD_API_RESULT':
-            return {
-                apiResults: [action.payload, ...state.apiResults]
+                searchCollection: [action.payload, ...state.searchCollection]
             }
         default: 
             return state

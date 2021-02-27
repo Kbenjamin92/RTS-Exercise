@@ -5,29 +5,26 @@ import axios from 'axios';
 
 
 const SearchAPI = () => {
-    const apiDataFromRedux = useSelector(state => state.apiResults);
-    const term = useSelector(state => state.searchTermCollection);
+    const term = useSelector(state => state.searchCollection);
     const dispatch = useDispatch();
     const [inputData, setInputData] = useState('')
-    
-    const getApiData = (title) => {
-        axios.get(`http://hn.algolia.com/api/v1/search?query=${title}&tags=story`)
-            .then(res => {
-                for (let i = 0; i < res.data.hits.length; i++) {
-                    dispatch({
-                        type: 'ADD_API_RESULT',
-                        payload: {
-                            author: res.data.hits[i].author,
-                            title: res.data.hits[i].title,
-                            url: res.data.hits[i].url
-                        }
-                    })
-                }
-            })
-            .catch(err => console.error(err))
-   }
+    const [apiArr, setApiArr] = useState([])
+
+
+console.log(term)
+console.log(apiArr)
+
+// get data
+const getApiData = async title => {
+    try {
+        const response = await axios.get(`http://hn.algolia.com/api/v1/search?query=${title}&tags=story`)
+        const result = await response.data.hits
+        setApiArr(result.slice(0, 10))
+    }
+    catch (error) {console.log(error)}
+}
    
-   const handleSubmit = (e) => {
+   const handleSubmit = e => {
        e.preventDefault();
        dispatch({
         type: 'ADD_SEARCHED_TERM',
@@ -37,11 +34,11 @@ const SearchAPI = () => {
         getApiData(inputData)
    }
 
-console.log(term)
-   const data = apiDataFromRedux.length !== 0 ? apiDataFromRedux.map((key, index) => {
+    // render data to the page
+   const data = apiArr.length ? apiArr.map((key, index) => {
        return (
             <div key={index} className='cards'>
-                <ul>
+                <ul className='list-container'>
                     <li>Author: {key.author}</li>
                     <hr/>
                     <li>Title: {key.title}</li>
@@ -50,24 +47,25 @@ console.log(term)
                 </ul>
             </div>
        )
-   }): getApiData()
-
+   }): (
+       <div className='message-before-data'>
+           <p>No data yet!</p>
+       </div>
+   )
     return (
         <div>
-            {/* remove this button */}
-            <button onClick={() => getApiData()}>get data</button>
-
-
-            <h1>Hacker News Algolia API!</h1>
-            <form onSubmit={handleSubmit}>
+            <h1 className='title'>Search Hacker News Algolia API!</h1>
+            <form onSubmit={handleSubmit} className='form'>
                 <input 
                 name='title' 
                 type='text'
                 value={inputData}
                 onChange={(e) => setInputData(e.target.value)}
                 placeholder='Title...'
+                required
+                className='input-field'
                 />
-                <button type='submit'>Search</button>
+                <button type='submit' className='btn'>Search</button>
             </form>
             {data}
         </div>
